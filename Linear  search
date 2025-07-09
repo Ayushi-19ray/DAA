@@ -1,0 +1,38 @@
+#include <stdio.h>
+int linearsearch(int a[],int n,int key,int index) {
+    if (index >= n){
+        return -1;  
+    }   
+    else if (a[index] == key){
+        return index; 
+    } 
+    else
+    {
+    return linearSearch(arr, n, key, index + 1);  
+    }
+}
+
+int main() {
+    int n, key;
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    int a[n];
+    printf("Enter no. of elements: ", n);
+    
+    for (int i = 0; i < n; i++)
+        scanf("%d", &a[i]);
+        
+
+    printf("Enter the element to search: ");
+    scanf("%d", &key);
+
+    int result = linearsearch(a, n, key, index);
+
+    if (result == -1)
+        printf("Element not found in array ");
+    else
+        printf("Element found at index %d ", result);
+
+    return 0;
+}
