@@ -2,45 +2,45 @@
 
 int binarysearch(int arr[], int left, int right, int key) {
     if (left > right) {
-        return -1;  
+        return -1;
     }
-    int mid=(right+left)/2;
+
+    int mid = left + (right - left) / 2;
+
     if (arr[mid] == key) {
-        return mid;  
-    }
-    else if (arr[mid] < key) {
-        return binarysearch(arr, mid + 1, right, key);  
-    }
-    else {
+        return mid;
+    } else if (arr[mid] < key) {
+        return binarysearch(arr, mid + 1, right, key);
+    } else {
         return binarysearch(arr, left, mid - 1, key);
     }
 }
 
-void main(){
+int main() {
     int n;
+
     printf("Enter the size of the array: ");
-    scanf("%d",&n);
-    
+    scanf("%d", &n);
+
     int arr[n];
-    printf("Enter %d element of the araray: ",n);
-    for(int i=0;i<n;i++){
-        scanf("%d",&arr[i]);
+    printf("Enter %d elements of the array (in sorted order):\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
     }
-    
+
     int key;
     printf("Enter the target element: ");
-    scanf("%d",&key);
-   int result = binarysearch(arr, 0, n - 1, key);
- 
- 
+    scanf("%d", &key);
+
+    int result = binarysearch(arr, 0, n - 1, key);
 
     if (result != -1) {
-        printf("Element %d found at index %d.", key, result);
+        printf("Element %d found at index %d.\n", key, result);
     } else {
-        printf("Element %d not found in the array.", key);
-    }    
-    
+        printf("Element %d not found in the array.\n", key);
+    }
 
+    return 0;
 }
- 
+
     
