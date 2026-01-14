@@ -1,47 +1,39 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-// Function to Sort the files in ascending order, perform
-// optimal file merging and return the minimum cost
-int optimalMerge(int files[], int n) {
-    int cost = 0;
-    while (n > 1) {
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (files[j] > files[j + 1]) {
-                    int temp = files[j];
-                    files[j] = files[j + 1];
-                    files[j + 1] = temp;
-                }
-            }
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+int knapsack(int N, int val[], int wt[], int W) {
+    int dp[N + 1][W + 1];
+
+    for (int i = 0; i <= N; i++) {
+        for (int j = 0; j <= W; j++) {
+            if (i == 0 || j == 0)
+                dp[i][j] = 0;
+            else if (wt[i - 1] <= j)
+                dp[i][j] = max(val[i - 1] + dp[i - 1][j - wt[i - 1]],
+                               dp[i - 1][j]);
+            else
+                dp[i][j] = dp[i - 1][j];
         }
-
-        int merged = files[0] + files[1];
-        cost += merged;
-        files[0] = merged;
-
-        for (int i = 1; i < n - 1; i++) {
-            files[i] = files[i + 1];
-        }
-        n--;
     }
-    return cost;
+    return dp[N][W];
 }
 
 int main() {
-    int n;
-    printf("Number of files: ");
-    scanf("%d", &n);
+    int N;
+    scanf("%d", &N);
 
-    int *files = (int *)malloc(n * sizeof(int));
-    printf("Enter the sizes of %d files: ", n);
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &files[i]);
-    }
+    int val[N], wt[N];
+    for (int i = 0; i < N; i++)
+        scanf("%d", &val[i]);
+    for (int i = 0; i < N; i++)
+        scanf("%d", &wt[i]);
 
-    int minCost = optimalMerge(files, n);
-    printf("Minimum cost of merging is: %d\n", minCost);
+    int W;
+    scanf("%d", &W);
 
-    free(files);
+    printf("%d\n", knapsack(N, val, wt, W));
     return 0;
 }
