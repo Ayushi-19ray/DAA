@@ -1,0 +1,53 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
+int count = 0;
+
+int isSafe(int board[], int row, int columns){
+  for(int i=0;i<row;i++){
+    if(board[i]==columns || abs(board[i]-columns) == abs(i-row))
+        return 0;
+  }
+  return 1;
+}
+
+void solveNQueens(int board[], int row, int n){
+  if(row==n){
+    count++;
+    return;
+  }
+
+  for(int columns = 0; columns<n;columns++){
+      if(isSafe(board,row,columns)){
+        board[row] = columns;
+        solveNQueens(board,row+1,n);
+        board[row] = -1;
+      }
+  }
+}
+
+int nQueen(int n){
+  int board[n];
+  for(int i=0;i<n;i++)
+  board[i] = -1;
+
+count=0;
+solveNQueens(board,0,n);
+  return count;
+}
+
+int main(){
+  int n;
+  scanf("%d",&n);
+  printf("%d\n", nQueen(n));
+  return 0;
+}
+
+
+
+
+
+
+
+
